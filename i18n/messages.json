@@ -1,0 +1,86 @@
+{
+	"pathList" : "List",
+
+	"nameList" : "List",
+	"leafList" : "{}",
+
+	"pathCreateList" : "List.List creation",
+
+	"nameCreateList"        : "List creation",
+	"childCreateList0"      : "Expression to be used to create the list",
+	"childCreateList1"      : "Symbol to be used over the iteration",
+	"childCreateList23"     : "List containing the elements to be iterated over",
+	"childCreateList2X"     : "Starting value of iteration",
+	"childCreateList3"      : "Ending value of iteration",
+	"childCreateList4"      : "Step of the iteration",
+
+	"pathCreateTable" : "List.Table creation",
+
+	"nameCreateTable"        : "Table creation",
+	"childCreateTable0"      : "Expression to be used to create the table",
+	"childCreateTable1"      : "Symbol to be used over the iteration",
+	"childCreateTable23"     : "List containing the elements to be iterated over",
+	"childCreateTable2X"     : "Starting value of iteration",
+	"childCreateTable3"      : "Ending value of iteration",
+	"childCreateTable4"      : "Step of the iteration",
+
+	"editionNumberElements" : "Number of elements",
+	"editionNumberRows"     : "Number of rows",
+	"editionNumberColumns"  : "Number of columns",
+	"editionInvalidRows"    : "Invalid value for rows",
+	"editionInvalidColumns" : "Invalid value for columns",
+
+	"nameSort"     : "Sort",
+	"mnemonicSort" : "Sort",
+	"childrenSort" : [ "List to sort", "Comparator" ],
+	"leafSort"     : "Sort",
+
+	"nameDeterminant" : "Matrix determinant",
+	"childDeterimant" : "Matrix to get its determinant",
+	"leafDeterminant" : "Determinant",
+
+	"nameCartesianProduct"     : "Cartesian product",
+	"operatorCartesianProduct" : "⨯",
+	"leafCartesianProduct"     : "Cartesian product",
+
+	"nameDotProduct"     : "Dot product",
+	"operatorDotProduct" : "•",
+	"leafDotProduct"     : "Dot product",
+
+	"nameOuterProduct"     : "Outer product",
+	"operatorOuterProduct" : "⊗",
+	"leafOuterProduct"     : "Outer product",
+
+	"namePowerSet"     : "Power set",
+	"mnemonicPowerSet" : "℘",
+	"leafPowerSet"     : "Power set",
+
+	"nameCartesianExponentiation"     : "Cartesian exponentiation",
+	"childrenCartesianExponentiation" : [ "Matrix base", "Exponent" ],
+	"leafCartesianExponentiation"     : "Cartesian exponentiation",
+
+	"pathMatrix" : "Math.Matrix",
+
+	"nameTranspose"    : "Matrix transposition",
+	"literalTranspose" : "⊤",
+	"leafTranspose"    : "Transpose",
+
+	"nameKroneckerProduct"     : "Kronecker product",
+	"operatorKroneckerProduct" : "⊗",
+	"leafKroneckerProduct"     : "Kronecker product",
+
+	"nameAdjoint"    : "Matrix adjoint",
+	"literalAdjoint" : "†",
+	"leafAdjoint"    : "Adjoint",
+
+	"pathTable" : "List.Table",
+
+	"nameRangeLookup"     : "Range lookup",
+	"mnemonicRangeLookup" : "RangeLookup",
+	"leafRangeLookup"     : "Range lookup",
+
+	"nameExactLookup"     : "Exact lookup",
+	"mnemonicExactLookup" : "ExactLookup",
+	"leafExactLookup"     : "Exact lookup"
+}
+

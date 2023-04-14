@@ -1,0 +1,86 @@
+{
+	"pathList" : "Lista",
+
+	"nameList" : "Lista",
+	"leafList" : "{}",
+
+	"pathCreateList" : "Lista.Creation de lista",
+
+	"nameCreateList"        : "Creation de lista",
+	"childCreateList0"      : "Expresión a ser utilizada para creación de lista",
+	"childCreateList1"      : "Símbolo a ser utilizado para la iteración",
+	"childCreateList23"     : "Lista conteniéndo los elementos a iterar",
+	"childCreateList2X"     : "Valor inicial de la iteración",
+	"childCreateList3"      : "Valor final de la iteración",
+	"childCreateList4"      : "Incremento de la iteración",
+
+	"pathCreateTable" : "Lista.Creación de tabla",
+
+	"nameCreateTable"        : "Creacion de table",
+	"childCreateTable0"      : "Expresión a ser utilizada para creación de tabla",
+	"childCreateTable1"      : "Símbolo a ser utilizado para la iteración",
+	"childCreateTable23"     : "Lista conteniéndo los elementos a iterar",
+	"childCreateTable2X"     : "Valor inicial de la iteración",
+	"childCreateTable3"      : "Valor final de la iteración",
+	"childCreateTable4"      : "Incremento de la iteración",
+
+	"editionNumberElements" : "Número de elementos",
+	"editionNumberRows"     : "Número de renglones",
+	"editionNumberColumns"  : "Número de columnas",
+	"editionInvalidRows"    : "Valor inválido para número de renglones",
+	"editionInvalidColumns" : "Valor inválido para número de columnas",
+
+	"nameSort"     : "Ordenar",
+	"mnemonicSort" : "Ordenar",
+	"childrenSort" : [ "Lista a ordenar", "Comparador" ],
+	"leafSort"     : "Ordenar",
+
+	"nameDeterminant" : "Determinante de matriz",
+	"childDeterimant" : "Matriz a obtener determinante",
+	"leafDeterminant" : "Determinante",
+
+	"nameCartesianProduct"     : "Producto cartesiano",
+	"operatorCartesianProduct" : "⨯",
+	"leafCartesianProduct"     : "Producto cartesiano",
+
+	"nameDotProduct"     : "Producto escalar",
+	"operatorDotProduct" : "•",
+	"leafDotProduct"     : "Producto escalar",
+
+	"nameOuterProduct"     : "Producto externo",
+	"operatorOuterProduct" : "⊗",
+	"leafOuterProduct"     : "Producto externo",
+
+	"namePowerSet"     : "Conjunto potencia",
+	"mnemonicPowerSet" : "℘",
+	"leafPowerSet"     : "Conjunto potencia",
+
+	"nameCartesianExponentiation"     : "Exponenciación cartesiana",
+	"childrenCartesianExponentiation" : [ "Matriz base", "Exponente" ],
+	"leafCartesianExponentiation"     : "Exponenciación cartesiana",
+
+	"pathMatrix" : "Matemáticas.Matriz",
+
+	"nameTranspose"    : "Transposition matricial",
+	"literalTranspose" : "⊤",
+	"leafTranspose"    : "Transposición",
+
+	"nameKroneckerProduct"     : "Producto de Kronecker",
+	"operatorKroneckerProduct" : "⊗",
+	"leafKroneckerProduct"     : "Producto de Kronecker",
+
+	"nameAdjoint"    : "Matriz adjunta",
+	"literalAdjoint" : "†",
+	"leafAdjoint"    : "Adjunta",
+
+	"pathTable" : "Lista.Tabla",
+
+	"nameRangeLookup"     : "Búsqueda en rango",
+	"mnemonicRangeLookup" : "BúsquedaRango",
+	"leafRangeLookup"     : "Búsqueda en rango",
+
+	"nameExactLookup"     : "Búsqueda exacta",
+	"mnemonicExactLookup" : "BúsquedaExacta",
+	"leafExactLookup"     : "Búsqueda exacta"
+}
+

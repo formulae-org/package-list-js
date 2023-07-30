@@ -1080,65 +1080,125 @@ List.adjoint = async (adjoint, session) => {
 	return false;
 };
 
-/*
-List.sort = async (sort, session) => {
-	Expression listExpression = sort.getChild(0);
-	if (!listExpression.getTag().equals(ListDescriptor.TAG_LIST)) return false;
-	
-	Expression comparatorExpression;
-	if (sort.children.length >= 2) {
-		comparatorExpression = sort.getChild(1);
+// https://gist.github.com/kimamula/fa34190db624239111bbe0deba72a6ab
+
+async function getPivot(x, y, z, compare) {
+	if (await compare(x, y) < 0) {
+		if (await compare(y, z) < 0) {
+			return y;
+		} else if (await compare(z, x) < 0) {
+			return x;
+		} else {
+			return z;
+		}
+	} else if (await compare(y, z) > 0) {
+		return y;
+	} else if (await compare(z, x) > 0) {
+		return x;
+	} else {
+		return z;
 	}
-	else {
-		Expression s1 = Formulae.createExpression(ListDescriptor.TAG_SYMBOL, "Name", "___s1");
-		Expression s2 = Formulae.createExpression(ListDescriptor.TAG_SYMBOL, "Name", "___s2");
-		Expression parameters = Formulae.createExpression(ListDescriptor.TAG_LIST, s1, s2);
-		Expression compare = Formulae.createExpression(ListDescriptor.TAG_COMPARE, s1.cloneExpression(), s2.cloneExpression());
-		comparatorExpression = Formulae.createExpression(ListDescriptor.TAG_LAMBDA, parameters, compare);
-	}
-	
-	final Expression application = Formulae.createExpression(
-		ListDescriptor.TAG_LAMBDA_APPLICATION,
-		comparatorExpression,
-		Formulae.createExpression(ListDescriptor.TAG_LIST)
-	);
-	final ExpressionHandler handler = new ExpressionHandler();
-	
-	Comparator<Expression> comparator = new Comparator<Expression>() {
-		@Override public int compare(Expression e1, Expression e2) {
-			Expression app = application.cloneExpression();
-			Expression args = app.getChild(1);
-			args.addChild(e1.cloneExpression());
-			args.addChild(e2.cloneExpression());
-			
-			handler.setExpression(app);
-			try {
-				switch (session.reduce(app).getTag()) {
-					case ListDescriptor.TAG_COMPARISON_LESS: return -1;
-					case ListDescriptor.TAG_COMPARISON_GREATER: return 1;
-					default: return 0;
-				}
+}
+
+async function quickSort(arr, compare, left = 0, right = arr.length - 1) {
+	if (left < right) {
+		let i = left, j = right, tmp;
+		const pivot = await getPivot(arr[i], arr[i + Math.floor((j - i) / 2)], arr[j], compare);
+		while (true) {
+			while (await compare(arr[i],  pivot) < 0) {
+				i++;
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-				return 0;
+			while (await compare(pivot, arr[j]) < 0) {
+				j--;
+			}
+			if (i >= j) {
+				break;
+			}
+			tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+		
+			i++;
+			j--;
+		}
+		await quickSort(arr, compare, left, i - 1);
+		await quickSort(arr, compare, j + 1, right);
+	}
+	return arr;
+}
+
+List.sort = async (sort, session) => {
+	let listExpression = sort.children[0];
+	if (listExpression.getTag() !== "List.List") return false;
+	
+	let lambda;
+	
+	if (sort.children.length >= 2) {
+		lambda = sort.children[1];
+	}
+	else { // default comparator
+		let s1 = Formulae.createExpression("Symbolic.Symbol");
+		s1.set("Name", "___s1");
+		
+		let s2 = Formulae.createExpression("Symbolic.Symbol");
+		s2.set("Name", "___s2");
+		
+		let parameters = Formulae.createExpression("List.List");
+		parameters.addChild(s1);
+		parameters.addChild(s2);
+		
+		let compare = Formulae.createExpression("Relation.Compare");
+		compare.addChild(s1.clone()); // clone ???
+		compare.addChild(s2.clone());
+		
+		lambda = Formulae.createExpression("Symbolic.Lambda");
+		lambda.addChild(parameters);
+		lambda.addChild(compare);
+	}
+	
+	let application = Formulae.createExpression("Symbolic.LambdaApplication");
+	application.addChild(lambda);
+	application.addChild(Formulae.createExpression("List.List")); // empty
+	
+	let handler = new ExpressionHandler();
+	
+	let comparator = async function(e1, e2) {
+	//let comparator = async (e1, e2) => {
+		let app = application.clone();
+		let args = app.children[1]; // values of lambda application
+		args.addChild(e1.clone());
+		args.addChild(e2.clone());
+		
+		handler.setExpression(app);
+		
+		try {
+			//console.log(app);
+			await session.reduce(app);
+			let r = handler.expression;
+			//console.log(r);
+			
+			switch (r.getTag()) {
+				case "Relation.Comparison.Less"   : return -1;
+				case "Relation.Comparison.Greater": return 1;
+				default: return 0;
 			}
 		}
-		
+		catch (e) {
+			console.log(e);
+			return 0;
+		}
 	};
 	
-	ArrayList<Expression> list = listExpression.getChildren();
-	list.sort(comparator);
+	let listSorted = await quickSort(listExpression.children, comparator);
 	
-	Expression result = Formulae.createExpression(ListDescriptor.TAG_LIST);
-	for (int i = 0, n = list.size(); i < n; ++i) {
-		result.addChild(list.get(i));
+	let result = Formulae.createExpression("List.List");
+	for (let i = 0, n = listSorted.length; i < n; ++i) {
+		result.addChild(listSorted[i]);
 	}
 	
 	sort.replaceBy(result);
 	return true;
 };
-*/
 
 List.setReducers = () => {
 	ReductionManager.addReducer("List.CreateList",         List.createList,         true);
@@ -1163,5 +1223,5 @@ List.setReducers = () => {
 	ReductionManager.addReducer("List.OuterProduct",              List.outerProduct);
 	ReductionManager.addReducer("List.PowerSet",                  List.powerSet);
 	ReductionManager.addReducer("Math.Matrix.Adjoint",            List.adjoint);
-	//ReductionManager.addReducer("List.Sort", List.sort);
+	ReductionManager.addReducer("List.Sort",                      List.sort);
 };

@@ -1201,11 +1201,11 @@ List.sort = async (sort, session) => {
 };
 
 List.setReducers = () => {
-	ReductionManager.addReducer("List.CreateList",         List.createList,         true);
-	ReductionManager.addReducer("List.CreateList",         List.createListList,     true);
-	ReductionManager.addReducer("List.CreateTable",        List.createList,         true);
-	ReductionManager.addReducer("List.CreateTable",        List.createListList,     true);
-	ReductionManager.addReducer("List.CreateCrossedTable", List.createCrossedTable, true);
+	ReductionManager.addReducer("List.CreateList",         List.createList,         { special: true });
+	ReductionManager.addReducer("List.CreateList",         List.createListList,     { special: true });
+	ReductionManager.addReducer("List.CreateTable",        List.createList,         { special: true });
+	ReductionManager.addReducer("List.CreateTable",        List.createListList,     { special: true });
+	ReductionManager.addReducer("List.CreateCrossedTable", List.createCrossedTable, { special: true });
 	
 	ReductionManager.addReducer("Math.Arithmetic.Negative",       List.negativeList);
 	ReductionManager.addReducer("Math.Arithmetic.Addition",       List.additionLists);

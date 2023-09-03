@@ -253,19 +253,21 @@ List.List = class extends Expression {
 	}
 };
 
-List.Table = class extends Expression.UnaryExpression {
+//List.Table = class extends Expression.UnaryExpression {
+List.Table = class extends Expression {
 	getTag() { return "List.Table"; }
 	getName() { return "Table"; }
-	getMnemonic() { return "Table"; };
-
+	getMnemonic() { return "Table"; }
+	canHaveChildren(count)  { return count >= 1 && count <= 2; }
+	
 	prepareDisplay(context) {
-		if (this.children[0].getTag() == "List.List" && this.children[0].children.length > 0) {
+		if (this.children.length == 1 && this.children[0].getTag() == "List.List" && this.children[0].children.length > 0) {
 			this.cols = Utils.isMatrix(this.children[0]);
 		}
 		else {
 			this.cols = -1;
 		}
-
+		
 		if (this.cols <= 0) {
 			this.prepareDisplayAsFunction(context);
 		}
@@ -281,7 +283,7 @@ List.Table = class extends Expression.UnaryExpression {
 			this.vertBaseline = child.vertBaseline;
 		}
 	}
-
+	
 	display(context, x, y) {
 		if (this.cols <= 0) {
 			this.displayAsFunction(context, x, y);
@@ -289,19 +291,19 @@ List.Table = class extends Expression.UnaryExpression {
 		else {
 			let child = this.children[0];
 			List.displayAsMatrix(context, child, x, y);
-
+			
 			context.beginPath();
-
+			
 			for (let r = 1, R = child.children.length; r < R; ++r) {
-				context.moveTo (x,              y + child.children[r].y - 7); // preventing obfuscation
-				context.lineTo (x + this.width, y + child.children[r].y - 7); // preventing obfuscation
+				context.moveTo(x,              y + child.children[r].y - 7);
+				context.lineTo(x + this.width, y + child.children[r].y - 7);
 			}
-
+			
 			for (let c = 1; c < this.cols; ++c) {
-				context.moveTo (x + child.xs[c] - 7, y              ); // preventing obfuscation
-				context.lineTo (x + child.xs[c] - 7, y + this.height); // preventing obfuscation
+				context.moveTo(x + child.xs[c] - 7, y              );
+				context.lineTo(x + child.xs[c] - 7, y + this.height);
 			}
-
+			
 			context.stroke();
 		}
 	}
@@ -442,7 +444,7 @@ List.setExpressions = function(module) {
 	Formulae.setExpression(module, "List.CreateList",         List.CreateList);
 	Formulae.setExpression(module, "List.CreateTable",        List.CreateTable);
 	Formulae.setExpression(module, "List.CreateCrossedTable", List.CreateCrossedTable);
-	Formulae.setExpression(module,"Math.Matrix.Determinant",  List.Determinant);
+	Formulae.setExpression(module, "Math.Matrix.Determinant", List.Determinant);
 	
 	// sort
 	Formulae.setExpression(module, "List.Sort", {
@@ -485,7 +487,7 @@ List.setExpressions = function(module) {
 	}));
 	
 	// power set
-	Formulae.setExpression(module,"List.PowerSet", {
+	Formulae.setExpression(module, "List.PowerSet", {
 		clazz:         Expression.Function,
 		getTag:        () => "List.PowerSet",
 		getMnemonic:   () => List.messages.mnemonicPowerSet,

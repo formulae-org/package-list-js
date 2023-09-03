@@ -20,6 +20,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 export class List extends Formulae.Package {}
 
+List.table = async (table, session) => {
+	if (table.children.length != 2) return false;
+	
+	if (table.children[1].getTag() !== "List.List") return false;
+	
+	let cols = Utils.isMatrix(table.children[0]);
+	if (cols == 0) return false;
+	
+	if (cols !== table.children[1].children.length) return false;
+	
+	let copy = table.children[0].clone();
+	copy.addChildAt(0, table.children[1].clone());
+	table.setChild(0, copy);
+	table.removeChildAt(1);
+	return true;
+};
+
 List.createList = async (createList, session) => {
 	if (createList.children.length == 3) return false;
 	
@@ -1201,6 +1218,8 @@ List.sort = async (sort, session) => {
 };
 
 List.setReducers = () => {
+	ReductionManager.addReducer("List.Table", List.table);
+	
 	ReductionManager.addReducer("List.CreateList",         List.createList,         { special: true });
 	ReductionManager.addReducer("List.CreateList",         List.createListList,     { special: true });
 	ReductionManager.addReducer("List.CreateTable",        List.createList,         { special: true });

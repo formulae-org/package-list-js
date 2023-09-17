@@ -503,4 +503,13 @@ List.setExpressions = function(module) {
 		getName:     () => List.messages["name" + tag],
 		min: 2, max: 2
 	}));
+	
+	Formulae.setExpression(module, "List.FromRange", {
+		clazz:       Expression.Infix,
+		getTag:      () => "List.FromRange",
+		getOperator: () => "..",
+		getName:     () => "From range",
+		min:         2,
+		max:         2
+	});
 };

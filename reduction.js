@@ -20,6 +20,34 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 export class List extends Formulae.Package {}
 
+List.fromRange = async (range, session) => {
+	let left = CanonicalArithmetic.getBigInt(range.children[0]);
+	if (left === undefined) {
+		ReductionManager.setInError(range.children[0], "Expression must be an integer number");
+		throw new ReductionError();
+	}
+	
+	let right = CanonicalArithmetic.getBigInt(range.children[1]);
+	if (right === undefined) {
+		ReductionManager.setInError(range.children[1], "Expression must be an integer number");
+		throw new ReductionError();
+	}
+	
+	let result = Formulae.createExpression("List.List");
+	
+	let i = left;
+	let step =left <= right ? 1n : -1n;
+	
+	while (true) {
+		result.addChild(CanonicalArithmetic.bigInt2Expr(i));
+		if (i === right) break;
+		i += step;
+	}
+	
+	range.replaceBy(result);
+	return true;
+};
+
 List.table = async (table, session) => {
 	if (table.children.length != 2) return false;
 	
@@ -1219,6 +1247,8 @@ List.sort = async (sort, session) => {
 
 List.setReducers = () => {
 	ReductionManager.addReducer("List.Table", List.table);
+	
+	ReductionManager.addReducer("List.FromRange", List.fromRange);
 	
 	ReductionManager.addReducer("List.CreateList",         List.createList,         { special: true });
 	ReductionManager.addReducer("List.CreateList",         List.createListList,     { special: true });

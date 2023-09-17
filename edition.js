@@ -118,6 +118,7 @@ List.setEditions = function() {
 
 	Formulae.addEdition(this.messages.pathList, "packages/org.formulae.list/img/vector.png", null, () => List.editionCreateList());
 	Formulae.addEdition(this.messages.pathList, "packages/org.formulae.list/img/matrix.png", null, () => List.editionCreateMatrix());
+	Formulae.addEdition(this.messages.pathList, null, "From range", () => Expression.binaryEdition ("List.FromRange", false));
 
 	Formulae.addEdition(this.messages.pathCreateList, "packages/org.formulae.list/img/createlist4.png", null, () => Expression.multipleEdition("List.CreateList", 4, 0));
 	Formulae.addEdition(this.messages.pathCreateList, "packages/org.formulae.list/img/createlist5.png", null, () => Expression.multipleEdition("List.CreateList", 5, 0));

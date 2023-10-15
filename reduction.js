@@ -1246,31 +1246,31 @@ List.sort = async (sort, session) => {
 };
 
 List.setReducers = () => {
-	ReductionManager.addReducer("List.Table", List.table);
+	ReductionManager.addReducer("List.Table", List.table, "List.table");
 	
-	ReductionManager.addReducer("List.FromRange", List.fromRange);
+	ReductionManager.addReducer("List.FromRange", List.fromRange, "List.fromRange");
 	
-	ReductionManager.addReducer("List.CreateList",         List.createList,         { special: true });
-	ReductionManager.addReducer("List.CreateList",         List.createListList,     { special: true });
-	ReductionManager.addReducer("List.CreateTable",        List.createList,         { special: true });
-	ReductionManager.addReducer("List.CreateTable",        List.createListList,     { special: true });
-	ReductionManager.addReducer("List.CreateCrossedTable", List.createCrossedTable, { special: true });
+	ReductionManager.addReducer("List.CreateList",         List.createList,         "List.createList", { special: true });
+	ReductionManager.addReducer("List.CreateList",         List.createListList,     "List.createListList", { special: true });
+	ReductionManager.addReducer("List.CreateTable",        List.createList,         "List.createList", { special: true });
+	ReductionManager.addReducer("List.CreateTable",        List.createListList,     "List.createListList", { special: true });
+	ReductionManager.addReducer("List.CreateCrossedTable", List.createCrossedTable, "List.createCrossedTable", { special: true });
 	
-	ReductionManager.addReducer("Math.Arithmetic.Negative",       List.negativeList);
-	ReductionManager.addReducer("Math.Arithmetic.Addition",       List.additionLists);
-	ReductionManager.addReducer("Math.Arithmetic.Multiplication", List.multiplicationScalarList);
-	ReductionManager.addReducer("Math.Arithmetic.Multiplication", List.matrixMultiplication);
-	ReductionManager.addReducer("Math.Arithmetic.Exponentiation", List.matrixExponentiation);
-	ReductionManager.addReducer("Math.Matrix.Transpose",          List.matrixTranspose);
-	ReductionManager.addReducer("Math.Matrix.Determinant",        List.matrixDeterminant);
-	ReductionManager.addReducer("List.Table.RangeLookup",         List.rangeLookup);
-	ReductionManager.addReducer("List.Table.ExactLookup",         List.exactLookupReducer);
-	ReductionManager.addReducer("List.CartesianProduct",          List.cartesianProduct);
-	ReductionManager.addReducer("List.CartesianExponentiation",   List.cartesianExponentiation);
-	ReductionManager.addReducer("Math.Matrix.KroneckerProduct",   List.kroneckerProduct);
-	ReductionManager.addReducer("List.DotProduct",                List.dotProduct);
-	ReductionManager.addReducer("List.OuterProduct",              List.outerProduct);
-	ReductionManager.addReducer("List.PowerSet",                  List.powerSet);
-	ReductionManager.addReducer("Math.Matrix.Adjoint",            List.adjoint);
-	ReductionManager.addReducer("List.Sort",                      List.sort);
+	ReductionManager.addReducer("Math.Arithmetic.Negative",       List.negativeList,             "List.negativeList");
+	ReductionManager.addReducer("Math.Arithmetic.Addition",       List.additionLists,            "List.additionLists");
+	ReductionManager.addReducer("Math.Arithmetic.Multiplication", List.multiplicationScalarList, "List.multiplicationScalarList");
+	ReductionManager.addReducer("Math.Arithmetic.Multiplication", List.matrixMultiplication,     "List.matrixMultiplication");
+	ReductionManager.addReducer("Math.Arithmetic.Exponentiation", List.matrixExponentiation,     "List.matrixExponentiation");
+	ReductionManager.addReducer("Math.Matrix.Transpose",          List.matrixTranspose,          "List.matrixTranspose");
+	ReductionManager.addReducer("Math.Matrix.Determinant",        List.matrixDeterminant,        "List.matrixDeterminant");
+	ReductionManager.addReducer("List.Table.RangeLookup",         List.rangeLookup,              "List.rangeLookup");
+	ReductionManager.addReducer("List.Table.ExactLookup",         List.exactLookupReducer,       "List.exactLookupReducer");
+	ReductionManager.addReducer("List.CartesianProduct",          List.cartesianProduct,         "List.cartesianProduct");
+	ReductionManager.addReducer("List.CartesianExponentiation",   List.cartesianExponentiation,  "List.cartesianExponentiation");
+	ReductionManager.addReducer("Math.Matrix.KroneckerProduct",   List.kroneckerProduct,         "List.kroneckerProduct");
+	ReductionManager.addReducer("List.DotProduct",                List.dotProduct,               "List.dotProduct");
+	ReductionManager.addReducer("List.OuterProduct",              List.outerProduct,             "List.outerProduct");
+	ReductionManager.addReducer("List.PowerSet",                  List.powerSet,                 "List.powerSet");
+	ReductionManager.addReducer("Math.Matrix.Adjoint",            List.adjoint,                  "List.adjoint");
+	ReductionManager.addReducer("List.Sort",                      List.sort,                     "List.sort");
 };

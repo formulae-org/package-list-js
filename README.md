@@ -15,16 +15,14 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
 ### Capabilities ###
 
 * Visualization of expressions
-   * List, it is shown as $`\{ element_1, element_2, ..., element_n \}`$
-   * Matrix
-   * Table
-
+    * List, it is shown as $`\{ element_1, element_2, ..., element_n \}`$
+    * Matrix
+    * Table
 * Edition
-   * Manual creation of a list. It creates a list with the currently selected expression as it single element
-   * Manual creation of a multi-element list of a provided number of elements
-   * Manual creation of a matrix of given number of rows and columns
-   * Manual creation of a table from a matrix
-
+    * Manual creation of a list. It creates a list with the currently selected expression as it single element
+    * Manual creation of a multi-element list of a provided number of elements
+    * Manual creation of a matrix of given number of rows and columns
+    * Manual creation of a table from a matrix
 * Reduction
     * Related to lists/vectors
         * Cartesian product of two or more lists/vectors

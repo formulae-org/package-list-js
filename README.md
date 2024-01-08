@@ -30,10 +30,10 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
         * Sort the elements of a list/vector
             * Using the natural order of its elements
             * Using a custom comparator, provided as a lambda expression  
-        * Cartesian product of two or more lists/vectors
+        * [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product) of two or more lists/vectors
         * Cartesian exponentiation of a list/vector
-        * Dot product of two or more lists/vectors
-        * Power set of two or more lists/vectors
+        * [Dot product](https://en.wikipedia.org/wiki/Dot_product) of two or more lists/vectors
+        * [Power set](https://en.wikipedia.org/wiki/Power_set) of two or more lists/vectors
     * Related to matrices
         * Matrix multiplication
         * Matrix transposition

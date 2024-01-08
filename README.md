@@ -18,13 +18,19 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
     * List, it is shown as $`\{ element_1, element_2, ..., element_n \}`$
     * Matrix
     * Table
+
 * Edition
     * Manual creation of a list. It creates a list with the currently selected expression as it single element
     * Manual creation of a multi-element list of a provided number of elements
     * Manual creation of a matrix of given number of rows and columns
     * Manual creation of a table from a matrix
+
 * Reduction
     * Related to lists/vectors
+        * Creation of a list from a range e.g. 5..10
+        * Sort the elements of a list/vector
+            * Using the natural order of its elements
+            * Using a custom comparator, provided as a lambda expression  
         * Cartesian product of two or more lists/vectors
         * Cartesian exponentiation of a list/vector
         * Dot product of two or more lists/vectors

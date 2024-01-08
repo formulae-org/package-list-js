@@ -27,7 +27,6 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
 
 * Reduction
     * Related to lists/vectors
-        * Creation of a list from a range e.g. 5..10
         * Sort the elements of a list/vector
             * Using the natural order of its elements
             * Using a custom comparator, provided as a lambda expression  
@@ -41,6 +40,8 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
         * Determinant of a matrix
         * Kronecker product of two or more matrices
         * Adjoint of a matrix
+    * Programmatic creation of list/vactors/matrices/tables
+        * Creation of a list from a range e.g. 5..10
 
 
 

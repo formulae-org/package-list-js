@@ -35,10 +35,10 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
         * [Dot product](https://en.wikipedia.org/wiki/Dot_product) of two or more lists/vectors
         * [Power set](https://en.wikipedia.org/wiki/Power_set) of two or more lists/vectors
     * Related to matrices
-        * Matrix multiplication
-        * Matrix transposition
-        * Determinant of a matrix
-        * Kronecker product of two or more matrices
+        * [Matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication)
+        * [Transpose of a matrix](https://en.wikipedia.org/wiki/Transpose)
+        * [Determinant of a matrix](https://en.wikipedia.org/wiki/Determinant)
+        * [Kronecker product](https://en.wikipedia.org/wiki/Kronecker_product) of two or more matrices
         * Adjoint of a matrix
     * Programmatic creation of list/vactors/matrices/tables
         * Creation of a list from a range e.g. 5..10

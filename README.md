@@ -4,7 +4,7 @@ List (and matrix, tables) package for the [Fōrmulæ](https://formulae.org) prog
 
 Fōrmulæ is also a software framework for visualization, edition and manipulation of complex expressions, from many fields. The code for an specific field —i.e. arithmetics— is encapsulated in a single unit called a Fōrmulæ **package**.
 
-This repository contains the source code for the **list package**. It is intended to the computation on lists. Despite the name, it includes a lot of expressions related to vectors, matrices (because a matrix y a list of -same cardinallity- subslists), and tables.
+This repository contains the source code for the **list package**. It is intended to the computation on lists. Despite the name, it includes a lot of expressions related to vectors, matrices (because a matrix is a list of -same cardinallity- subslists), and tables.
 
 The GitHub organization [formulae-org](https://github.com/formulae-org) encompasses the source code for the rest of packages, as well as the [web application](https://github.com/formulae-org/formulae-js).
 

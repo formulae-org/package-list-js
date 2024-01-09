@@ -40,7 +40,7 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
         * [Determinant of a matrix](https://en.wikipedia.org/wiki/Determinant)
         * [Kronecker product](https://en.wikipedia.org/wiki/Kronecker_product) of two or more matrices
         * [Conjugate transpose](https://en.wikipedia.org/wiki/Conjugate_transpose) of a matrix
-    * Programmatic creation of list/vactors/matrices/tables
+    * Programmatic creation of list/vectors/matrices/tables
         * Creation of a list from a range e.g. 5..10
 
 

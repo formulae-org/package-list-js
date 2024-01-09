@@ -27,7 +27,7 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
 
 * Reduction
     * Related to lists/vectors
-        * Sort the elements of a list/vector
+        * [Sort](https://en.wikipedia.org/wiki/Sorting) the elements of a list/vector
             * Using the natural order of its elements
             * Using a custom comparator, provided as a lambda expression  
         * [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product) of two or more lists/vectors
@@ -39,7 +39,7 @@ Take a look at this [tutorial](https://formulae.org/?script=tutorials/Complex) t
         * [Transpose of a matrix](https://en.wikipedia.org/wiki/Transpose)
         * [Determinant of a matrix](https://en.wikipedia.org/wiki/Determinant)
         * [Kronecker product](https://en.wikipedia.org/wiki/Kronecker_product) of two or more matrices
-        * Adjoint of a matrix
+        * [Conjugate transpose](https://en.wikipedia.org/wiki/Conjugate_transpose) of a matrix
     * Programmatic creation of list/vactors/matrices/tables
         * Creation of a list from a range e.g. 5..10
 

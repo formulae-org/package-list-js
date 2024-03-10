@@ -39,7 +39,11 @@ List.fromRange = async (range, session) => {
 	let step =left <= right ? 1n : -1n;
 	
 	while (true) {
-		result.addChild(CanonicalArithmetic.bigInt2Expr(i));
+		result.addChild(
+			CanonicalArithmetic.canonical2InternalNumber(
+				new CanonicalArithmetic.Integer(BigInt(i))
+			)
+		);
 		if (i === right) break;
 		i += step;
 	}
@@ -103,28 +107,22 @@ List.createList = async (createList, session) => {
 		// from
 		let from;
 		if (n >= 4) {
-			from = CanonicalArithmetic.expr2CanonicalNumeric(createList.children[2]);
-			if (from === null) {
-				return false;
-			}
+			if (!createList.children[2].isInternalNumber()) return false;
+			from = createList.children[2].get("Value");
 		}
 		else {
 			from = new CanonicalArithmetic.Integer(1n);
 		}
 		
 		// to
-		let to = CanonicalArithmetic.expr2CanonicalNumeric(createList.children[n == 3 ? 2 : 3]);
-		if (to === null) {
-			return false;
-		}
+		if (!createList.children[n == 3 ? 2 : 3].isInternalNumber()) return false;
+		let to = createList.children[n == 3 ? 2 : 3].get("Value");
 		
 		// step
 		let step;
 		if (n == 5) {
-			step = CanonicalArithmetic.expr2CanonicalNumeric(createList.children[4]);
-			if (step === null) {
-				return false;
-			}
+			if (!createList.children[4].isInternalNumber()) return false;
+			step = createList.children[4].get("Value");
 		}
 		else {
 			step = new CanonicalArithmetic.Integer(1n);
@@ -180,7 +178,7 @@ List.createList = async (createList, session) => {
 					break filling;
 				}
 			}
-			scopeEntry.setValue(CanonicalArithmetic.canonicalNumeric2Expr(from));
+			scopeEntry.setValue(CanonicalArithmetic.canonical2InternalNumber(from));
 			
 			if (hasHeaders) {
 				result.addChild(clone = arg.children[1].clone());
@@ -198,20 +196,6 @@ List.createList = async (createList, session) => {
 		
 		result.removeScope();
 	}
-	
-	/*
-	if ((n = result.children.length) == 0) {
-		result.replaceBy(
-			CanonicalArithmetic.number2Expr(summation ? 0 : 1)
-		);
-	}
-	else if (n == 1) {
-		result.replaceBy(result.children[0]);
-	}
-	else {
-		await session.reduce(result);
-	}
-	*/
 	
 	return true;
 };
@@ -1001,7 +985,11 @@ List.dotProduct = async (dotProduct, session) => {
 	
 	switch (f1.children.length) {
 		case 0:
-			dotProduct.replaceBy(CanonicalArithmetic.number2Expr(0));
+			dotProduct.replaceBy(
+				CanonicalArithmetic.canonical2InternalNumber(
+					new CanonicalArithmetic.Integer(0n)
+				)
+			);
 			break;
 		
 		case 1:

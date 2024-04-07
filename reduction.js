@@ -472,13 +472,13 @@ List.additionLists = async (additionList, session) => {
 };
 
 List.multiplicationScalarList = async (multiplication, session) => {
-	if (multiplication.children.length != 2) return false;
+	if (multiplication.children.length !== 2) return false;
+	
+	let scalar = multiplication.children[0];
+	if (!scalar.isInternalNumber()) return false;
 	
 	let list = multiplication.children[1];
 	if (list.getTag() !== "List.List") return false;
-	
-	let scalar = multiplication.children[0];
-	if (!CanonicalArithmetic.isExpressionCanonicalNumeric(scalar)) return false;
 	
 	let i, n = list.children.length;
 	

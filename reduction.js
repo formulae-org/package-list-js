@@ -388,6 +388,7 @@ List.createCrossedTable = async (createCrossedTable, session) => {
 	return true;
 };
 
+/*
 List.negativeList = async (negativeList, session) => {
 	let list = negativeList.children[0];
 	if (list.getTag() !== "List.List") return false;
@@ -410,6 +411,7 @@ List.negativeList = async (negativeList, session) => {
 	
 	return true;
 };
+*/
 
 List.additionLists = async (additionList, session) => {
 	let sizePivot;
@@ -1244,7 +1246,9 @@ List.setReducers = () => {
 	ReductionManager.addReducer("List.CreateTable",        List.createListList,     "List.createListList", { special: true });
 	ReductionManager.addReducer("List.CreateCrossedTable", List.createCrossedTable, "List.createCrossedTable", { special: true });
 	
-	ReductionManager.addReducer("Math.Arithmetic.Negative",       List.negativeList,             "List.negativeList");
+	// internal representation
+	//ReductionManager.addReducer("Math.Arithmetic.Negative",       List.negativeList,             "List.negativeList");
+	
 	ReductionManager.addReducer("Math.Arithmetic.Addition",       List.additionLists,            "List.additionLists");
 	ReductionManager.addReducer("Math.Arithmetic.Multiplication", List.multiplicationScalarList, "List.multiplicationScalarList");
 	ReductionManager.addReducer("Math.Arithmetic.Multiplication", List.matrixMultiplication,     "List.matrixMultiplication");

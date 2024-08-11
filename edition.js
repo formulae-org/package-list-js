@@ -115,6 +115,7 @@ List.editionCreateMatrix = function() {
 List.setEditions = function() {
 	Formulae.addEdition(this.messages.pathList, null, this.messages.leafList, () => Expression.wrapperEdition("List.List"));
 	Formulae.addEdition(this.messages.pathList, null, "Table", () => Expression.wrapperEdition("List.Table"));
+	Formulae.addEdition(this.messages.pathList, null, "Undecorated table", () => Expression.wrapperEdition("List.UndecoratedTable"));
 
 	Formulae.addEdition(this.messages.pathList, "packages/org.formulae.list/img/vector.png", null, () => List.editionCreateList());
 	Formulae.addEdition(this.messages.pathList, "packages/org.formulae.list/img/matrix.png", null, () => List.editionCreateMatrix());

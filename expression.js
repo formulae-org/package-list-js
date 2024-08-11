@@ -253,7 +253,6 @@ List.List = class extends Expression {
 	}
 };
 
-//List.Table = class extends Expression.UnaryExpression {
 List.Table = class extends Expression {
 	getTag() { return "List.Table"; }
 	getName() { return "Table"; }
@@ -305,6 +304,47 @@ List.Table = class extends Expression {
 			}
 			
 			context.stroke();
+		}
+	}
+};
+
+List.UndecoratedTable = class extends Expression {
+	getTag() { return "List.UndecoratedTable"; }
+	getName() { return "Undecorated table"; }
+	getMnemonic() { return "UndecorateTable"; }
+	canHaveChildren(count)  { return count >= 1 && count <= 2; }
+	
+	prepareDisplay(context) {
+		if (this.children.length == 1 && this.children[0].getTag() == "List.List" && this.children[0].children.length > 0) {
+			this.cols = Utils.isMatrix(this.children[0]);
+		}
+		else {
+			this.cols = -1;
+		}
+		
+		if (this.cols <= 0) {
+			this.prepareDisplayAsFunction(context);
+		}
+		else {
+			let child = this.children[0];
+			child.cols = this.cols;
+			List.prepareDisplayAsMatrix(context, child, 15, 0);
+			child.x = 0;
+			child.y = 0;
+			this.width = child.width;
+			this.height = child.height;
+			this.horzBaseline = child.horzBaseline;
+			this.vertBaseline = child.vertBaseline;
+		}
+	}
+	
+	display(context, x, y) {
+		if (this.cols <= 0) {
+			this.displayAsFunction(context, x, y);
+		}
+		else {
+			let child = this.children[0];
+			List.displayAsMatrix(context, child, x, y);
 		}
 	}
 };
@@ -441,6 +481,7 @@ List.Determinant = class extends Expression.UnaryExpression {
 List.setExpressions = function(module) {
 	Formulae.setExpression(module, "List.List",               List.List);
 	Formulae.setExpression(module, "List.Table",              List.Table);
+	Formulae.setExpression(module, "List.UndecoratedTable",   List.UndecoratedTable);
 	Formulae.setExpression(module, "List.CreateList",         List.CreateList);
 	Formulae.setExpression(module, "List.CreateTable",        List.CreateTable);
 	Formulae.setExpression(module, "List.CreateCrossedTable", List.CreateCrossedTable);

@@ -349,10 +349,15 @@ List.UndecoratedTable = class extends Expression {
 	}
 };
 
-List.CreateList = class extends Expression.SummationLike {
+List.CreateList = class extends Expression.SummationLikeSymbol {
+	constructor() {
+		super();
+		this.symbol = "{}";
+	}
+	
 	getTag() { return "List.CreateList"; }
 	getName() { return List.messages.nameCreateList; }
-
+	
 	getChildName(index) {
 		switch (index) {
 			case 0: return List.messages.childCreateList0;
@@ -362,29 +367,17 @@ List.CreateList = class extends Expression.SummationLike {
 			case 4: return List.messages.childCreateList4;
 		}
 	}
-
-	display(context, x, y) {
-		List.drawBrace(context, x,     y + this.top, this.bottom - this.top, this.horzBaseline - this.top, true);
-		List.drawBrace(context, x + 1, y + this.top, this.bottom - this.top, this.horzBaseline - this.top, true);
-		List.drawBrace(
-			context,
-			x + this.children[0].x - 5,
-			y + this.top, this.bottom - this.top, this.horzBaseline - this.top, false
-		);
-		List.drawBrace(
-			context,
-			x + this.children[0].x - 6,
-			y + this.top, this.bottom - this.top, this.horzBaseline - this.top, false
-		);
-
-		super.display(context, x, y);
-	}
 }
 
-List.CreateTable = class extends Expression.SummationLike {
+List.CreateTable = class extends Expression.SummationLikeSymbol {
+	constructor() {
+		super();
+		this.symbol = "⊤";
+	}
+	
 	getTag() { return "List.CreateTable"; }
 	getName() { return List.messages.nameCreateTable; }
-
+	
 	getChildName(index) {
 		switch (index) {
 			case 0: return List.messages.childCreateTable0;
@@ -393,25 +386,19 @@ List.CreateTable = class extends Expression.SummationLike {
 			case 3: return List.messages.childCreateTable3;
 			case 4: return List.messages.childCreateTable4;
 		}
-	}
-
-	display(context, x, y) {
-		let w = this.children[0].x - 5;
-		let sw = w / 2;
-
-		context.beginPath();
-		context.moveTo (x,      y + this.top); context.lineTo(x + w,  y + this.top   ); // preventing obfuscation
-		context.moveTo (x + sw, y + this.top); context.lineTo(x + sw, y + this.bottom); // preventing obfuscation
-		context.stroke();
-
-		super.display(context, x, y);
 	}
 }
 
 List.CreateCrossedTable = class extends Expression.SummationLike {
+	constructor() {
+		super();
+		this.widthSymbol = 40;
+		this.heightSymbol = 40;
+	}
+	
 	getTag() { return "List.CreateCrossedTable"; }
 	getName() { return List.messages.nameCreateTable; }
-
+	
 	getChildName(index) {
 		switch (index) {
 			case 0: return List.messages.childCreateTable0;
@@ -421,18 +408,17 @@ List.CreateCrossedTable = class extends Expression.SummationLike {
 			case 4: return List.messages.childCreateTable4;
 		}
 	}
-
+	
 	display(context, x, y) {
-		let w = this.children[0].x - 5;
-		let sw = w / 2;
-		let sh = (this.bottom - this.top) / 2;
-
+		let bkp = context.lineWidth;
+		context.lineWidth = 3;
 		context.beginPath();
-		context.moveTo (x, y + this.top); context.lineTo(x + sw, y + this.top + sh); // preventing obfuscation
-		context.moveTo (x + sw, y + this.top + sh); context.lineTo(x + w, y + this.top + sh);
-		context.moveTo (x + sw, y + this.top + sh); context.lineTo(x + sw, y + this.bottom);
+		context.moveTo(x + this.vertBaselineSymbol - 15, y + this.horzBaseline - 15); context.lineTo(x + this.vertBaselineSymbol, y + this.horzBaseline);
+		context.moveTo(x + this.vertBaselineSymbol, y + this.horzBaseline); context.lineTo(x + this.vertBaselineSymbol + 20, y + this.horzBaseline);
+		context.moveTo(x + this.vertBaselineSymbol, y + this.horzBaseline); context.lineTo(x + this.vertBaselineSymbol, y + this.horzBaseline + 15);
 		context.stroke();
-
+		context.lineWidth = bkp;
+		
 		super.display(context, x, y);
 	}
 }

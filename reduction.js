@@ -21,13 +21,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 export class List extends Formulae.Package {}
 
 List.fromRange = async (range, session) => {
-	let left = CanonicalArithmetic.getBigInt(range.children[0]);
+	let left = CanonicalArithmetic.getInteger(range.children[0]);
 	if (left === undefined) {
 		ReductionManager.setInError(range.children[0], "Expression must be an integer number");
 		throw new ReductionError();
 	}
 	
-	let right = CanonicalArithmetic.getBigInt(range.children[1]);
+	let right = CanonicalArithmetic.getInteger(range.children[1]);
 	if (right === undefined) {
 		ReductionManager.setInError(range.children[1], "Expression must be an integer number");
 		throw new ReductionError();
@@ -36,16 +36,17 @@ List.fromRange = async (range, session) => {
 	let result = Formulae.createExpression("List.List");
 	
 	let i = left;
-	let step =left <= right ? 1n : -1n;
+	let step = CanonicalArithmetic.getIntegerOne(session);
+	if (CanonicalArithmetic.comparison(left, right, session) > 0) step = step.negation();
 	
 	while (true) {
 		result.addChild(
-			CanonicalArithmetic.canonical2InternalNumber(
-				new CanonicalArithmetic.Integer(BigInt(i))
+			CanonicalArithmetic.createInternalNumber(
+				CanonicalArithmetic.createInteger(i, session)
 			)
 		);
-		if (i === right) break;
-		i += step;
+		if (CanonicalArithmetic.comparison(i, right, session) === 0) break;
+		i = CanonicalArithmetic.addition(i, step, session);
 	}
 	
 	range.replaceBy(result);
@@ -74,6 +75,7 @@ List.createList = async (createList, session) => {
 	
 	let n = createList.children.length;
 	let result;
+	let one = CanonicalArithmetic.getIntegerOne(session);
 	
 	if (n == 2) {
 		let arg = createList.children[0];
@@ -84,7 +86,11 @@ List.createList = async (createList, session) => {
 		
 		result = Formulae.createExpression("List.List");
 		
-		for (let i = 0; i < N; ++i) {
+		for (
+			let i = CanonicalArithmetic.getIntegerZero(session);
+			CanonicalArithmetic.comparison(i, N, session) < 0;
+			i = CanonicalArithmetic.addition(i, one, session)
+		) {
 			result.addChild(arg.clone());
 		}
 		
@@ -111,7 +117,7 @@ List.createList = async (createList, session) => {
 			from = createList.children[2].get("Value");
 		}
 		else {
-			from = new CanonicalArithmetic.Integer(1n);
+			from = one;
 		}
 		
 		// to
@@ -125,7 +131,7 @@ List.createList = async (createList, session) => {
 			step = createList.children[4].get("Value");
 		}
 		else {
-			step = new CanonicalArithmetic.Integer(1n);
+			step = one;
 		}
 		if (step.isZero()) return false;
 		
@@ -169,16 +175,16 @@ List.createList = async (createList, session) => {
 		
 		filling: while (true) {
 			if (negative) {
-				if (from.comparison(to, session) < 0) {
+				if (CanonicalArithmetic.comparison(from, to, session) < 0) {
 					break filling;
 				}
 			}
 			else {
-				if (from.comparison(to, session) > 0) {
+				if (CanonicalArithmetic.comparison(from, to, session) > 0) {
 					break filling;
 				}
 			}
-			scopeEntry.setValue(CanonicalArithmetic.canonical2InternalNumber(from));
+			scopeEntry.setValue(CanonicalArithmetic.createInternalNumber(from));
 			
 			if (hasHeaders) {
 				result.addChild(clone = arg.children[1].clone());
@@ -191,7 +197,7 @@ List.createList = async (createList, session) => {
 			
 			await session.reduce(clone);
 			
-			from = from.addition(step, session);
+			from = CanonicalArithmetic.addition(from, step, session);
 		}
 		
 		result.removeScope();
@@ -343,7 +349,7 @@ List.createCrossedTable = async (createCrossedTable, session) => {
 	let result = Formulae.createExpression("List.Table");
 	result.addChild(matrix);
 	createCrossedTable.replaceBy(result);
-
+	
 	// creating the scope
 	result.createScope();
 	
@@ -590,8 +596,8 @@ List.matrixExponentiation = async (exponentiation, session) => {
 	
 	let exponent = exponentiation.children[1];
 	
-	let n = CanonicalArithmetic.getInteger(exponent);
-	if (n === undefined) return false;
+	let n = CanonicalArithmetic.getNativeInteger(exponent);
+	if (n === undefined || n <= 0) return false;
 	
 	////////////////////////
 	
@@ -888,7 +894,7 @@ List.cartesianExponentiation = async (expr, session) => {
 		return false;
 	}
 	
-	let pow = CanonicalArithmetic.getInteger(expr.children[1]);
+	let pow = CanonicalArithmetic.getNativeInteger(expr.children[1]);
 	if (pow == null) {
 		return false;
 	}
@@ -988,8 +994,8 @@ List.dotProduct = async (dotProduct, session) => {
 	switch (f1.children.length) {
 		case 0:
 			dotProduct.replaceBy(
-				CanonicalArithmetic.canonical2InternalNumber(
-					new CanonicalArithmetic.Integer(0n)
+				CanonicalArithmetic.createInternalNumber(
+					CanonicalArithmetic.getIntegerZero(session)
 				)
 			);
 			break;

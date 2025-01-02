@@ -20,28 +20,57 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 export class List extends Formulae.Package {}
 
-List.drawBrace = function(context, x, y, height, baseline, opening) {
+List.drawSquareBracket = function(context, x, y, height, opening) {
 	context.beginPath();
-
+	
 	if (opening) {
-		context.moveTo (x + 4, y               ); //    . // preventing obfuscation
-		context.lineTo (x + 2, y + 2           ); //   /  // preventing obfuscation
-		context.lineTo (x + 2, y + baseline - 2); //   |  // preventing obfuscation
-		context.lineTo (x,     y + baseline    ); //  /   // preventing obfuscation
-		context.lineTo (x + 2, y + baseline + 2); //  \.  // preventing obfuscation
-		context.lineTo (x + 2, y + height - 2  ); //   |  // preventing obfuscation
-		context.lineTo (x + 4, y + height      ); //   \  // preventing obfuscation
+		++x;
+		context.moveTo(x + 4, y         ); // 
+		context.lineTo(x - 1, y         ); //    -.
+		
+		context.moveTo(x    , y - 1     );
+		context.lineTo(x    , y + height + 1); //   |
+		
+		context.moveTo(x - 1, y + height);
+		context.lineTo(x + 4, y + height); //    -
 	}
 	else {
-		context.moveTo (x - 4, y               ); // .    // preventing obfuscation
-		context.lineTo (x - 2, y + 2           ); //  \.  // preventing obfuscation
-		context.lineTo (x - 2, y + baseline - 2); //  |   // preventing obfuscation
-		context.lineTo (x,     y + baseline    ); //   \. // preventing obfuscation
-		context.lineTo (x - 2, y + baseline + 2); //   /  // preventing obfuscation
-		context.lineTo (x - 2, y + height - 2  ); //  |   // preventing obfuscation
-		context.lineTo (x - 4, y + height      ); //  /   // preventing obfuscation
+		--x;
+		context.moveTo(x - 4, y         ); //
+		context.lineTo(x + 1, y         ); //   .-
+		
+		context.moveTo(x    , y - 1     );
+		context.lineTo(x    , y + height + 1); //     |
+		
+		context.moveTo(x + 1, y + height);
+		context.lineTo(x - 4, y + height); //    -
 	}
+	
+	context.stroke();
+}
 
+List.drawBrace = function(context, x, y, height, baseline, opening) {
+	context.beginPath();
+	
+	if (opening) {
+		context.moveTo (x + 4, y               ); //    .
+		context.lineTo (x + 2, y + 2           ); //   /
+		context.lineTo (x + 2, y + baseline - 2); //   |
+		context.lineTo (x,     y + baseline    ); //  /
+		context.lineTo (x + 2, y + baseline + 2); //  \
+		context.lineTo (x + 2, y + height - 2  ); //   |
+		context.lineTo (x + 4, y + height      ); //   \
+	}
+	else {
+		context.moveTo (x - 4, y               ); // .
+		context.lineTo (x - 2, y + 2           ); //  \
+		context.lineTo (x - 2, y + baseline - 2); //  |
+		context.lineTo (x,     y + baseline    ); //   \
+		context.lineTo (x - 2, y + baseline + 2); //   /
+		context.lineTo (x - 2, y + height - 2  ); //  |
+		context.lineTo (x - 4, y + height      ); //  /
+	}
+	
 	context.stroke();
 }
 
@@ -152,11 +181,13 @@ List.List = class extends Expression {
 
 	display(context, x, y) {
 		if (this.cols <= 0) {
-			List.drawBrace(context, x, y, this.height, this.horzBaseline, true);
+			//List.drawBrace(context, x, y, this.height, this.horzBaseline, true);
+			List.drawSquareBracket(context, x, y, this.height, true);
 
 			this.displayAsList(context, x, y);
 
-			List.drawBrace(context, x + this.width, y, this.height, this.horzBaseline, false);
+			//List.drawBrace(context, x + this.width, y, this.height, this.horzBaseline, false);
+			List.drawSquareBracket(context, x + this.width, y, this.height, false);
 		}
 		else {
 			List.displayAsMatrix(context, this, x, y);
@@ -352,7 +383,8 @@ List.UndecoratedTable = class extends Expression {
 List.CreateList = class extends Expression.SummationLikeSymbol {
 	constructor() {
 		super();
-		this.symbol = "{}";
+		//this.symbol = "{}";
+		this.symbol = "[ ]";
 	}
 	
 	getTag() { return "List.CreateList"; }

@@ -42,7 +42,8 @@ List.fromRange = async (range, session) => {
 	while (true) {
 		result.addChild(
 			CanonicalArithmetic.createInternalNumber(
-				CanonicalArithmetic.createInteger(i, session)
+				CanonicalArithmetic.createInteger(i, session),
+				session
 			)
 		);
 		if (CanonicalArithmetic.comparison(i, right, session) === 0) break;
@@ -184,7 +185,7 @@ List.createList = async (createList, session) => {
 					break filling;
 				}
 			}
-			scopeEntry.setValue(CanonicalArithmetic.createInternalNumber(from));
+			scopeEntry.setValue(CanonicalArithmetic.createInternalNumber(from, session));
 			
 			if (hasHeaders) {
 				result.addChild(clone = arg.children[1].clone());
@@ -995,7 +996,8 @@ List.dotProduct = async (dotProduct, session) => {
 		case 0:
 			dotProduct.replaceBy(
 				CanonicalArithmetic.createInternalNumber(
-					CanonicalArithmetic.getIntegerZero(session)
+					CanonicalArithmetic.getIntegerZero(session),
+					session
 				)
 			);
 			break;

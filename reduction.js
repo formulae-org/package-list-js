@@ -21,13 +21,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 export class List extends Formulae.Package {}
 
 List.fromRange = async (range, session) => {
-	let left = CanonicalArithmetic.getInteger(range.children[0]);
+	let left = Arithmetic.getInteger(range.children[0]);
 	if (left === undefined) {
 		ReductionManager.setInError(range.children[0], "Expression must be an integer number");
 		throw new ReductionError();
 	}
 	
-	let right = CanonicalArithmetic.getInteger(range.children[1]);
+	let right = Arithmetic.getInteger(range.children[1]);
 	if (right === undefined) {
 		ReductionManager.setInError(range.children[1], "Expression must be an integer number");
 		throw new ReductionError();
@@ -36,18 +36,18 @@ List.fromRange = async (range, session) => {
 	let result = Formulae.createExpression("List.List");
 	
 	let i = left;
-	let step = CanonicalArithmetic.getIntegerOne(session);
-	if (CanonicalArithmetic.comparison(left, right, session) > 0) step = step.negation();
+	let step = Arithmetic.getIntegerOne(session);
+	if (Arithmetic.comparison(left, right, session) > 0) step = step.negation();
 	
 	while (true) {
 		result.addChild(
-			CanonicalArithmetic.createInternalNumber(
-				CanonicalArithmetic.createInteger(i, session),
+			Arithmetic.createInternalNumber(
+				Arithmetic.createInteger(i, session),
 				session
 			)
 		);
-		if (CanonicalArithmetic.comparison(i, right, session) === 0) break;
-		i = CanonicalArithmetic.addition(i, step, session);
+		if (Arithmetic.comparison(i, right, session) === 0) break;
+		i = Arithmetic.addition(i, step, session);
 	}
 	
 	range.replaceBy(result);
@@ -76,21 +76,21 @@ List.createList = async (createList, session) => {
 	
 	let n = createList.children.length;
 	let result;
-	let one = CanonicalArithmetic.getIntegerOne(session);
+	let one = Arithmetic.getIntegerOne(session);
 	
 	if (n == 2) {
 		let arg = createList.children[0];
 		let _N = await session.reduceAndGet(createList.children[1], 1);
 		
-		let N = CanonicalArithmetic.getInteger(_N);
+		let N = Arithmetic.getInteger(_N);
 		if (N === undefined) return false;
 		
 		result = Formulae.createExpression("List.List");
 		
 		for (
-			let i = CanonicalArithmetic.getIntegerZero(session);
-			CanonicalArithmetic.comparison(i, N, session) < 0;
-			i = CanonicalArithmetic.addition(i, one, session)
+			let i = Arithmetic.getIntegerZero(session);
+			Arithmetic.comparison(i, N, session) < 0;
+			i = Arithmetic.addition(i, one, session)
 		) {
 			result.addChild(arg.clone());
 		}
@@ -176,16 +176,16 @@ List.createList = async (createList, session) => {
 		
 		filling: while (true) {
 			if (negative) {
-				if (CanonicalArithmetic.comparison(from, to, session) < 0) {
+				if (Arithmetic.comparison(from, to, session) < 0) {
 					break filling;
 				}
 			}
 			else {
-				if (CanonicalArithmetic.comparison(from, to, session) > 0) {
+				if (Arithmetic.comparison(from, to, session) > 0) {
 					break filling;
 				}
 			}
-			scopeEntry.setValue(CanonicalArithmetic.createInternalNumber(from, session));
+			scopeEntry.setValue(Arithmetic.createInternalNumber(from, session));
 			
 			if (hasHeaders) {
 				result.addChild(clone = arg.children[1].clone());
@@ -198,7 +198,7 @@ List.createList = async (createList, session) => {
 			
 			await session.reduce(clone);
 			
-			from = CanonicalArithmetic.addition(from, step, session);
+			from = Arithmetic.addition(from, step, session);
 		}
 		
 		result.removeScope();
@@ -597,7 +597,7 @@ List.matrixExponentiation = async (exponentiation, session) => {
 	
 	let exponent = exponentiation.children[1];
 	
-	let n = CanonicalArithmetic.getNativeInteger(exponent);
+	let n = Arithmetic.getNativeInteger(exponent);
 	if (n === undefined || n <= 0) return false;
 	
 	////////////////////////
@@ -895,7 +895,7 @@ List.cartesianExponentiation = async (expr, session) => {
 		return false;
 	}
 	
-	let pow = CanonicalArithmetic.getNativeInteger(expr.children[1]);
+	let pow = Arithmetic.getNativeInteger(expr.children[1]);
 	if (pow == null) {
 		return false;
 	}
@@ -995,8 +995,8 @@ List.dotProduct = async (dotProduct, session) => {
 	switch (f1.children.length) {
 		case 0:
 			dotProduct.replaceBy(
-				CanonicalArithmetic.createInternalNumber(
-					CanonicalArithmetic.getIntegerZero(session),
+				Arithmetic.createInternalNumber(
+					Arithmetic.getIntegerZero(session),
 					session
 				)
 			);

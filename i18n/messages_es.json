@@ -60,6 +60,16 @@
 	"leafCartesianExponentiation"     : "Exponenciación cartesiana",
 
 	"pathMatrix" : "Matemáticas.Matriz",
+	
+	"leafCreateMatrix"       : " Crear matriz",
+	"leafInsertRowAbove"     : " Insertar renglón arriba",
+	"leafInsertRowBelow"     : " Insertar renglón abajo",
+	"leafInsertColumnBefore" : " Insertar columna a la izquierda",
+	"leafInsertColumnAfter"  : " Insertar columna a la derecha",
+	"leafDeleteRow"          : " Eliminar renglón",
+	"leafDeleteColumn"       : " Eliminar columna",
+	
+	"msgNotMatrixElement" : "Expresión no es un elemento de una matriz",
 
 	"nameTranspose"    : "Transposition matricial",
 	"literalTranspose" : "⊤",

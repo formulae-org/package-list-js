@@ -60,7 +60,17 @@
 	"leafCartesianExponentiation"     : "Cartesian exponentiation",
 
 	"pathMatrix" : "Math.Matrix",
-
+	
+	"leafCreateMatrix"       : " Create matrix",
+	"leafInsertRowAbove"     : " Insert row above",
+	"leafInsertRowBelow"     : " Insert row below",
+	"leafInsertColumnBefore" : " Insert column before",
+	"leafInsertColumnAfter"  : " Insert column after",
+	"leafDeleteRow"          : " Delete row",
+	"leafDeleteColumn"       : " Delete column",
+	
+	"msgNotMatrixElement" : "Expression is not an element of a matrix",
+	
 	"nameTranspose"    : "Matrix transposition",
 	"literalTranspose" : "⊤",
 	"leafTranspose"    : "Transpose",

@@ -35,6 +35,11 @@
 	"childrenSort" : [ "List to sort", "Comparator" ],
 	"leafSort"     : "Sort",
 
+	"nameToMatrix"     : "To matrix",
+	"mnemonicToMatrix" : "ToMatrix",
+	"childrenToMatrix" : [ "List", "Number of columns" ],
+	"leafToMatrix"     : "To matrix",
+	
 	"nameDeterminant" : "Matrix determinant",
 	"childDeterimant" : "Matrix to get its determinant",
 	"leafDeterminant" : "Determinant",

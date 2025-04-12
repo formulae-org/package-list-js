@@ -554,6 +554,16 @@ List.setExpressions = function(module) {
 		noParentheses: true
 	});
 	
+	// to matrix
+	Formulae.setExpression(module, "List.ToMatrix", {
+		clazz:         Expression.Function,
+		getTag:        () => "List.ToMatrix",
+		getMnemonic:   () => List.messages.mnemonicToMatrix,
+		getName:       () => List.messages.nameToMatrix,
+		getChildName:  index => List.messages.childrenToMatrix[index],
+		min: 2, max: 2
+	});
+	
 	// excel type
 	[ "RangeLookup", "ExactLookup" ].forEach(tag => Formulae.setExpression(module, 'List.Table.' + tag, {
 		clazz:       Expression.Function,

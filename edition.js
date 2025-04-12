@@ -276,7 +276,8 @@ List.setEditions = function() {
 	
 	Formulae.addEdition(this.messages.pathCreateTable, "packages/org.formulae.list/img/createcrossedtable.png", null, () => Expression.multipleEdition("List.CreateCrossedTable", 3, 0));
 	
-	Formulae.addEdition(this.messages.pathList, null, this.messages.leafSort, () => Expression.wrapperEdition("List.Sort"));
+	Formulae.addEdition(this.messages.pathList, null, this.messages.leafSort,     () => Expression.wrapperEdition("List.Sort"));
+	Formulae.addEdition(this.messages.pathList, null, this.messages.leafToMatrix, () => Expression.multipleEdition("List.ToMatrix", 2, 0));
 	
 	Formulae.addEdition(this.messages.pathList, null, this.messages.leafCartesianProduct,        () => Expression.binaryEdition ("List.CartesianProduct",        false));
 	Formulae.addEdition(this.messages.pathList, null, this.messages.leafDotProduct,              () => Expression.binaryEdition ("List.DotProduct",              false));

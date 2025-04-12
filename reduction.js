@@ -1243,6 +1243,43 @@ List.sort = async (sort, session) => {
 	return true;
 };
 
+List.toMatrix = async (toMatrix, session) => {
+	let list = toMatrix.children[0];
+	if (list.getTag() !== "List.List") return false;
+	
+	let n = list.children.length;
+	
+	let columns = Arithmetic.getNativeInteger(toMatrix.children[1]);
+	if (columns === null || columns < 1) {
+		return false;
+	}
+	
+	let rows = Math.ceil(n / columns);
+	
+	let matrix = Formulae.createExpression("List.List");
+	let row;
+	let c;
+	let i = 0;
+	
+	for (let r = 0; r < rows; ++r) {
+		row = Formulae.createExpression("List.List");
+		matrix.addChild(row);
+		
+		for (c = 0; c < columns; ++c) {
+			if (i < n) {
+				row.addChild(list.children[i].clone());
+			}
+			else {
+				row.addChild(Formulae.createExpression("Visualization.Invisible", Formulae.createExpression("Null")));
+			}
+			++i;
+		}
+	}
+	
+	toMatrix.replaceBy(matrix);
+	return true;
+};
+
 List.setReducers = () => {
 	ReductionManager.addReducer("List.Table", List.table, "List.table");
 	
@@ -1273,4 +1310,5 @@ List.setReducers = () => {
 	ReductionManager.addReducer("List.PowerSet",                  List.powerSet,                 "List.powerSet");
 	ReductionManager.addReducer("Math.Matrix.Adjoint",            List.adjoint,                  "List.adjoint");
 	ReductionManager.addReducer("List.Sort",                      List.sort,                     "List.sort");
+	ReductionManager.addReducer("List.ToMatrix",                  List.toMatrix,                 "List.toMatrix");
 };

@@ -34,6 +34,11 @@
 	"mnemonicSort" : "Ordenar",
 	"childrenSort" : [ "Lista a ordenar", "Comparador" ],
 	"leafSort"     : "Ordenar",
+	
+	"nameToMatrix"     : "A matriz",
+	"mnemonicToMatrix" : "AMatriz",
+	"childrenToMatrix" : [ "Lista", "Numero de columnas" ],
+	"leafToMatrix"     : "A matrix",
 
 	"nameDeterminant" : "Determinante de matriz",
 	"childDeterimant" : "Matriz a obtener determinante",

@@ -342,7 +342,7 @@ List.Table = class extends Expression {
 List.UndecoratedTable = class extends Expression {
 	getTag() { return "List.UndecoratedTable"; }
 	getName() { return "Undecorated table"; }
-	getMnemonic() { return "UndecorateTable"; }
+	getMnemonic() { return "UndecoratedTable"; }
 	canHaveChildren(count)  { return count >= 1 && count <= 2; }
 	
 	prepareDisplay(context) {

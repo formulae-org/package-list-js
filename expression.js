@@ -517,7 +517,7 @@ List.setExpressions = function(module) {
 	
 	// cartesian exponentiation
 	Formulae.setExpression(module, "List.CartesianExponentiation", {
-		clazz:        Expression.Exponentiation,
+		clazz:        Expression.Superscript,
 		getTag:       () => "List.CartesianExponentiation",
 		getName:      () => List.messages.nameCartesianExponentiation,
 		getChildName: index => List.messages.childrenCartesianExponentiation

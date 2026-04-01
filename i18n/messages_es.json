@@ -16,7 +16,7 @@
 
 	"pathCreateTable" : "Lista.Creación de tabla",
 
-	"nameCreateTable"        : "Creacion de table",
+	"nameCreateTable"        : "Creación de tabla",
 	"childCreateTable0"      : "Expresión a ser utilizada para creación de tabla",
 	"childCreateTable1"      : "Símbolo a ser utilizado para la iteración",
 	"childCreateTable23"     : "Lista conteniéndo los elementos a iterar",
@@ -37,8 +37,8 @@
 	
 	"nameToMatrix"     : "A matriz",
 	"mnemonicToMatrix" : "AMatriz",
-	"childrenToMatrix" : [ "Lista", "Numero de columnas" ],
-	"leafToMatrix"     : "A matrix",
+	"childrenToMatrix" : [ "Lista", "Número de columnas" ],
+	"leafToMatrix"     : "A matriz",
 
 	"nameDeterminant" : "Determinante de matriz",
 	"childDeterimant" : "Matriz a obtener determinante",

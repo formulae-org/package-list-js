@@ -25,10 +25,6 @@
 	"childCreateTable4"      : "Incremento de la iteración",
 
 	"editionNumberElements" : "Número de elementos",
-	"editionNumberRows"     : "Número de renglones",
-	"editionNumberColumns"  : "Número de columnas",
-	"editionInvalidRows"    : "Valor inválido para número de renglones",
-	"editionInvalidColumns" : "Valor inválido para número de columnas",
 
 	"nameSort"     : "Ordenar",
 	"mnemonicSort" : "Ordenar",
@@ -39,10 +35,6 @@
 	"mnemonicToMatrix" : "AMatriz",
 	"childrenToMatrix" : [ "Lista", "Número de columnas" ],
 	"leafToMatrix"     : "A matriz",
-
-	"nameDeterminant" : "Determinante de matriz",
-	"childDeterimant" : "Matriz a obtener determinante",
-	"leafDeterminant" : "Determinante",
 
 	"nameCartesianProduct"     : "Producto cartesiano",
 	"operatorCartesianProduct" : "⨯",
@@ -63,30 +55,6 @@
 	"nameCartesianExponentiation"     : "Exponenciación cartesiana",
 	"childrenCartesianExponentiation" : [ "Matriz base", "Exponente" ],
 	"leafCartesianExponentiation"     : "Exponenciación cartesiana",
-
-	"pathMatrix" : "Matemáticas.Matriz",
-	
-	"leafCreateMatrix"       : " Crear matriz",
-	"leafInsertRowAbove"     : " Insertar renglón arriba",
-	"leafInsertRowBelow"     : " Insertar renglón abajo",
-	"leafInsertColumnBefore" : " Insertar columna a la izquierda",
-	"leafInsertColumnAfter"  : " Insertar columna a la derecha",
-	"leafDeleteRow"          : " Eliminar renglón",
-	"leafDeleteColumn"       : " Eliminar columna",
-	
-	"msgNotMatrixElement" : "Expresión no es un elemento de una matriz",
-
-	"nameTranspose"    : "Transposition matricial",
-	"literalTranspose" : "⊤",
-	"leafTranspose"    : "Transposición",
-
-	"nameKroneckerProduct"     : "Producto de Kronecker",
-	"operatorKroneckerProduct" : "⊗",
-	"leafKroneckerProduct"     : "Producto de Kronecker",
-
-	"nameAdjoint"    : "Matriz adjunta",
-	"literalAdjoint" : "†",
-	"leafAdjoint"    : "Adjunta",
 
 	"pathTable" : "Lista.Tabla",
 

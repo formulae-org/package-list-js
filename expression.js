@@ -25,30 +25,31 @@ List.drawSquareBracket = function(context, x, y, height, opening) {
 	
 	if (opening) {
 		++x;
-		context.moveTo(x + 4, y         ); // 
-		context.lineTo(x - 1, y         ); //    -.
+		context.moveTo(x + 4, y);
+		context.lineTo(x - 1, y);
 		
-		context.moveTo(x    , y - 1     );
-		context.lineTo(x    , y + height + 1); //   |
+		context.moveTo(x, y - 1         );
+		context.lineTo(x, y + height + 1);
 		
 		context.moveTo(x - 1, y + height);
-		context.lineTo(x + 4, y + height); //    -
+		context.lineTo(x + 4, y + height);
 	}
 	else {
 		--x;
-		context.moveTo(x - 4, y         ); //
-		context.lineTo(x + 1, y         ); //   .-
+		context.moveTo(x - 4, y);
+		context.lineTo(x + 1, y);
 		
-		context.moveTo(x    , y - 1     );
-		context.lineTo(x    , y + height + 1); //     |
+		context.moveTo(x, y - 1         );
+		context.lineTo(x, y + height + 1);
 		
 		context.moveTo(x + 1, y + height);
-		context.lineTo(x - 4, y + height); //    -
+		context.lineTo(x - 4, y + height);
 	}
 	
 	context.stroke();
 }
 
+/*
 List.drawBrace = function(context, x, y, height, baseline, opening) {
 	context.beginPath();
 	
@@ -73,95 +74,7 @@ List.drawBrace = function(context, x, y, height, baseline, opening) {
 	
 	context.stroke();
 }
-
-List.prepareDisplayAsMatrix = function(context, expr, space, border) {
-	let r, c;
-	let rows = expr.children.length;
-	let row, child;
-	
-	let maxHorzBaseline = new Array(rows).fill(0);
-	let maxSemiHeight   = new Array(rows).fill(0);
-	let maxVertBaseline = new Array(expr.cols).fill(0);
-	let maxSemiWidth    = new Array(expr.cols).fill(0);
-	
-	for (r = 0; r < rows; ++r) {
-		row = expr.children[r];
-
-		for (c = 0; c < expr.cols; ++c) {
-			(child = row.children[c]).prepareDisplay(context);
-			
-			if (child.horzBaseline > maxHorzBaseline[r]) {
-				maxHorzBaseline[r] = child.horzBaseline;
-			}
-			
-			if (child.height - child.horzBaseline > maxSemiHeight[r]) {
-				maxSemiHeight[r] = child.height - child.horzBaseline;
-			}
-			
-			if (child.vertBaseline > maxVertBaseline[c]) {
-				maxVertBaseline[c] = child.vertBaseline;
-			}
-			
-			if (child.width - child.vertBaseline > maxSemiWidth[c]) {
-				maxSemiWidth[c] = child.width - child.vertBaseline;
-			}
-		}
-	}
-
-	expr.xs = new Array(expr.cols);
-	
-	expr.width = border;
-	let centers = new Array(expr.cols).fill(0);
-	for (c = 0; c < expr.cols; ++c) {
-		if (c > 0) expr.width += space;
-		expr.xs[c] = expr.width;
-		expr.width += maxVertBaseline[c];
-		centers[c] = expr.width;
-		expr.width += maxSemiWidth[c];
-	}
-	expr.width += border;
-	
-
-	expr.height = border;
-	for (r = 0; r < rows; ++r) {
-		row = expr.children[r];
-		
-		if (r > 0) expr.height += space;
-		
-		row.x = 0;
-		row.y = expr.height;
-		row.width = expr.width;
-		row.height = maxHorzBaseline[r] + maxSemiHeight[r];
-		
-		for (c = 0; c < expr.cols; ++c) {
-			child = row.children[c];
-			
-			child.x = centers[c] - child.vertBaseline;
-			child.y = maxHorzBaseline[r] - child.horzBaseline;
-		}
-		
-		expr.height += maxHorzBaseline[r] + maxSemiHeight[r];
-	}
-	expr.height += border;
-	
-	expr.vertBaseline = Math.round(expr.width / 2);
-	expr.horzBaseline = Math.round(expr.height / 2);
-}
-
-List.displayAsMatrix = function(context, expr, x, y) {
-	let row, child;
-	
-	for (let r = 0, rows = expr.children.length; r < rows; ++r) {
-		row = expr.children[r];
-		for (let c = 0; c < expr.cols; ++c) {
-			(child = row.children[c]).display(
-				context,
-				x + row.x + child.x,
-				y + row.y + child.y
-			);
-		}
-	}
-}
+*/
 
 List.List = class extends Expression {
 	getTag() { return "List.List"; }
@@ -175,7 +88,7 @@ List.List = class extends Expression {
 			this.prepareDisplayAsList(context, 6, 6);
 		}
 		else {
-			List.prepareDisplayAsMatrix(context, this, 10, 5);
+			this.prepareDisplayAsMatrix(context, 10, 5);
 		}
 	}
 
@@ -190,7 +103,7 @@ List.List = class extends Expression {
 			List.drawSquareBracket(context, x + this.width, y, this.height, false);
 		}
 		else {
-			List.displayAsMatrix(context, this, x, y);
+			this.displayAsMatrix(context, x, y);
 
 			context.beginPath();
 
@@ -304,7 +217,7 @@ List.Table = class extends Expression {
 		else {
 			let child = this.children[0];
 			child.cols = this.cols;
-			List.prepareDisplayAsMatrix(context, child, 15, 5);
+			child.prepareDisplayAsMatrix(context, 15, 5);
 			child.x = 0;
 			child.y = 0;
 			this.width = child.width;
@@ -313,27 +226,27 @@ List.Table = class extends Expression {
 			this.vertBaseline = child.vertBaseline;
 		}
 	}
-	
+
 	display(context, x, y) {
 		if (this.cols <= 0) {
 			this.displayAsFunction(context, x, y);
 		}
 		else {
 			let child = this.children[0];
-			List.displayAsMatrix(context, child, x, y);
-			
+			child.displayAsMatrix(context, x, y);
+
 			context.beginPath();
-			
+
 			for (let r = 1, R = child.children.length; r < R; ++r) {
 				context.moveTo(x,              y + child.children[r].y - 7);
 				context.lineTo(x + this.width, y + child.children[r].y - 7);
 			}
-			
+
 			for (let c = 1; c < this.cols; ++c) {
 				context.moveTo(x + child.xs[c] - 7, y              );
 				context.lineTo(x + child.xs[c] - 7, y + this.height);
 			}
-			
+
 			context.stroke();
 		}
 	}
@@ -359,7 +272,7 @@ List.UndecoratedTable = class extends Expression {
 		else {
 			let child = this.children[0];
 			child.cols = this.cols;
-			List.prepareDisplayAsMatrix(context, child, 15, 0);
+			child.prepareDisplayAsMatrix(context, 15, 0);
 			child.x = 0;
 			child.y = 0;
 			this.width = child.width;
@@ -368,14 +281,14 @@ List.UndecoratedTable = class extends Expression {
 			this.vertBaseline = child.vertBaseline;
 		}
 	}
-	
+
 	display(context, x, y) {
 		if (this.cols <= 0) {
 			this.displayAsFunction(context, x, y);
 		}
 		else {
 			let child = this.children[0];
-			List.displayAsMatrix(context, child, x, y);
+			child.displayAsMatrix(context, x, y);
 		}
 	}
 };
@@ -455,47 +368,6 @@ List.CreateCrossedTable = class extends Expression.SummationLike {
 	}
 }
 
-List.Determinant = class extends Expression.UnaryExpression {
-	getTag() { return "Math.Matrix.Determinant"; }
-	getName() { return List.messages.nameDeetrminant; }
-	getChildName() { return List.messages.childDeterimant; }
-
-	prepareDisplay(context) {
-		let child = this.children[0];
-		let cols = Utils.isMatrix(child);
-
-		if (cols < 0) {
-			child.prepareDisplay(context);
-		}
-		else {
-			child.cols = cols;
-			List.prepareDisplayAsMatrix(context, child, 10, 0);
-		}
-		
-		child.x = child.y = 5;
-		this.width = child.width + 10;
-		this.height = child.height + 10;
-		this.horzBaseline = 5 + child.horzBaseline;
-		this.vertBaseline = 5 + child.vertBaseline;
-	}
-	
-	display(context, x, y) {
-		let child = this.children[0];
-		
-		if (child.cols === undefined || child.cols < 0) {
-			child.display(context, x + child.x, y + child.y);
-		}
-		else {
-			List.displayAsMatrix(context, child, x + child.x, y + child.y);
-		}
-		
-		context.beginPath();
-		context.moveTo (x,              y); context.lineTo(x,              y + this.height); // preventing obfuscation
-		context.moveTo (x + this.width, y); context.lineTo(x + this.width, y + this.height); // preventing obfuscation
-		context.stroke();
-	}
-}
-
 List.setExpressions = function(module) {
 	Formulae.setExpression(module, "List.List",               List.List);
 	Formulae.setExpression(module, "List.Table",              List.Table);
@@ -503,7 +375,6 @@ List.setExpressions = function(module) {
 	Formulae.setExpression(module, "List.CreateList",         List.CreateList);
 	Formulae.setExpression(module, "List.CreateTable",        List.CreateTable);
 	Formulae.setExpression(module, "List.CreateCrossedTable", List.CreateCrossedTable);
-	Formulae.setExpression(module, "Math.Matrix.Determinant", List.Determinant);
 	
 	// sort
 	Formulae.setExpression(module, "List.Sort", {
@@ -520,31 +391,22 @@ List.setExpressions = function(module) {
 		clazz:        Expression.Superscript,
 		getTag:       () => "List.CartesianExponentiation",
 		getName:      () => List.messages.nameCartesianExponentiation,
-		getChildName: index => List.messages.childrenCartesianExponentiation
+		getChildName: index => List.messages.childrenCartesianExponentiation[index]
 	});
 	
 	[ // several products
-		[ "Math.Matrix", "Kronecker", -2, null ],
-		[ "List",        "Cartesian", -2, null ],
-		[ "List",        "Dot",        2,    2 ],
-		[ "List",        "Outer",      2,    2 ]
-	].forEach(row => Formulae.setExpression(module, row[0] + "." + row[1] + 'Product', {
+		[ "Cartesian", -2, null ],
+		[ "Dot",        2,    2 ],
+		[ "Outer",      2,    2 ]
+	].forEach(row => Formulae.setExpression(module, "List." + row[0] + 'Product', {
 		clazz:       Expression.Infix,
-		getTag:      () => row[0] + "." + row[1] + "Product",
-		getOperator: () => List.messages["operator" + row[1] + "Product"],
-		getName:     () => List.messages["name" + row[1] + "Product"],
-		min:         row[2],
-		max:         row[3]
+		getTag:      () => "List." + row[0] + "Product",
+		getOperator: () => List.messages["operator" + row[0] + "Product"],
+		getName:     () => List.messages["name" + row[0] + "Product"],
+		min:         row[1],
+		max:         row[2]
 	}));
-	
-	// transpose & adjoint matrix operations
-	[ "Transpose", "Adjoint" ].forEach(tag => Formulae.setExpression(module, 'Math.Matrix.' + tag, {
-		clazz:      Expression.SuperscriptedLiteral,
-		getTag:     () => "Math.Matrix." + tag,
-		getLiteral: () => List.messages["literal" + tag],
-		getName:    () => List.messages["name" + tag]
-	}));
-	
+
 	// power set
 	Formulae.setExpression(module, "List.PowerSet", {
 		clazz:         Expression.Function,

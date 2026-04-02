@@ -25,10 +25,6 @@
 	"childCreateTable4"      : "Step of the iteration",
 
 	"editionNumberElements" : "Number of elements",
-	"editionNumberRows"     : "Number of rows",
-	"editionNumberColumns"  : "Number of columns",
-	"editionInvalidRows"    : "Invalid value for rows",
-	"editionInvalidColumns" : "Invalid value for columns",
 
 	"nameSort"     : "Sort",
 	"mnemonicSort" : "Sort",
@@ -40,10 +36,6 @@
 	"childrenToMatrix" : [ "List", "Number of columns" ],
 	"leafToMatrix"     : "To matrix",
 	
-	"nameDeterminant" : "Matrix determinant",
-	"childDeterimant" : "Matrix to get its determinant",
-	"leafDeterminant" : "Determinant",
-
 	"nameCartesianProduct"     : "Cartesian product",
 	"operatorCartesianProduct" : "⨯",
 	"leafCartesianProduct"     : "Cartesian product",
@@ -63,30 +55,6 @@
 	"nameCartesianExponentiation"     : "Cartesian exponentiation",
 	"childrenCartesianExponentiation" : [ "Matrix base", "Exponent" ],
 	"leafCartesianExponentiation"     : "Cartesian exponentiation",
-
-	"pathMatrix" : "Math.Matrix",
-	
-	"leafCreateMatrix"       : " Create matrix",
-	"leafInsertRowAbove"     : " Insert row above",
-	"leafInsertRowBelow"     : " Insert row below",
-	"leafInsertColumnBefore" : " Insert column before",
-	"leafInsertColumnAfter"  : " Insert column after",
-	"leafDeleteRow"          : " Delete row",
-	"leafDeleteColumn"       : " Delete column",
-	
-	"msgNotMatrixElement" : "Expression is not an element of a matrix",
-	
-	"nameTranspose"    : "Matrix transposition",
-	"literalTranspose" : "⊤",
-	"leafTranspose"    : "Transpose",
-
-	"nameKroneckerProduct"     : "Kronecker product",
-	"operatorKroneckerProduct" : "⊗",
-	"leafKroneckerProduct"     : "Kronecker product",
-
-	"nameAdjoint"    : "Matrix adjoint",
-	"literalAdjoint" : "†",
-	"leafAdjoint"    : "Adjoint",
 
 	"pathTable" : "List.Table",
 
